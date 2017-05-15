@@ -138,7 +138,7 @@
                     <th>mobile</th>
                     <th>email</th>
                     <th>login</th>
-                    <th>pass</th>
+                    <!--<th>pass</th>-->
                 </tr>
                 @for(user <- users){
                     <tr>
@@ -148,7 +148,7 @@
                         <td>@user.mobile</td>
                         <td>@user.email</td>
                         <td>@user.login</td>
-                        <td>@user.pass</td>
+                        <!--<td>@user.pass</td>-->
                         <td><a href="@routes.ApplicationController.deleteUser(user.id)">delete</a></td>
                     </tr>
                 }

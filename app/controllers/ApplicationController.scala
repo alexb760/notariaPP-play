@@ -14,7 +14,7 @@ class ApplicationController extends Controller {
     }
   }
 
-  def addUser() = Action.async { implicit request =>
+ def addUser() = Action.async { implicit request =>
     UserForm.form.bindFromRequest.fold(
       // if any error in submitted data
       errorForm => Future.successful(Ok(views.html.index(errorForm, Seq.empty[User]))),

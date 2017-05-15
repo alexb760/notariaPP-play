@@ -1,6 +1,6 @@
 package controllers
 
-import model.{User, UserForm}
+import models.{User, UserForm}
 import play.api.mvc._
 import scala.concurrent.Future
 import service.UserService

@@ -1,6 +1,6 @@
 package services
 
-import model.{Notaria, Notarias}
+import models.{Notaria, Notarias}
 import scala.concurrent.Future
 
 object NotariaService{

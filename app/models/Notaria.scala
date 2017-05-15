@@ -1,4 +1,4 @@
-package model
+package models
 
 import play.api.Play
 import play.api.data.Form

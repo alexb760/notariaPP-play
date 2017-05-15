@@ -1,0 +1,118 @@
+@(servicioForm: Form[models.ServicioFormData],servicios : Seq[models.Servicio])(implicit request: RequestHeader)
+@main() {
+
+    <form id="user-data-form" role="form" action='@routes.ApplicationControllerServicio.addServicio()' method="post" class="form-horizontal" align="center" autocomplete="off">
+
+        <fieldset class="user-fieldset">
+
+            <div class="user-form">
+                <label class="form-title" style="color: #F8741B; font-size: 22px;font-weight: bold; text-decoration:none">Servicios Notaria</label>
+            </div>
+            <br/>
+            <table align="center" cellspacing="20">
+                <tr>
+                    <td align="left">
+                        <div class="user-form" id="firstName_field_label">
+                            <div class="controls col-xs-offset-3 col-xs-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                    <strong>Nombre</strong> :
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td align="center">
+                        <div class="user-form" id="firstName_field_value">
+                            <div class="controls col-xs-offset-3 col-xs-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                    <input type="text" id="nombre" name="nombre" value="" placeholder="Nombre Servicio" class="form-control input-lg" required>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">
+                        <div class="user-form" id="lastName_field_label">
+                            <div class="controls col-xs-offset-3 col-xs-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                    <strong>Descripcion</strong> :
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td align="center">
+                        <div class="user-form" id="lastName_field_value">
+                            <div class="controls col-xs-offset-3 col-xs-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                    <input type="text" id="descripcion" name="descripcion" value="" placeholder="Descripcion" class="form-control input-lg" required>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">
+                        <div class="user-form" id="mobile_field_label">
+                            <div class="controls col-xs-offset-3 col-xs-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                    <strong>Valo</strong> :
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td align="center">
+                        <div class="user-form" id="mobile_field_value">
+                            <div class="controls col-xs-offset-3 col-xs-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                    <input type="Double" id="valor" name="valor" placeholder="Valor Servicio" class="form-control input-lg" required>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                </tr>
+            </table>
+            <br/>
+            <div class="form-actions controls ynt-btn-xlarge">
+                <button type="submit" class="btn btn-primary ynt-btn-orange">Add</button>
+            </div>
+
+        </fieldset>
+    </form>
+
+    <div class="user-display" >
+        <fieldset>
+            <legend align="center"><h3>Registered Users</h3></legend>
+            <table cellspacing="20">
+                <tr>
+                    <th>ServicioId</th>
+                    <th>NotariaId</th>
+                    <th>Nombre</th>
+                    <th>Descripcion</th>
+                    <th>Valor</th>
+                    <th>Estado</th>
+                    <th>FechaMod</th>
+                </tr>
+                @for(servicio <- servicios){
+                    <tr>
+                        <td>@servicio.id</td>
+                        <td>@servicio.notariaId</td>
+                        <td>@servicio.nombre</td>
+                        <td>@servicio.descripcion</td>
+                        <td>@servicio.valor</td>
+                        <td>@servicio.estado</td>
+                        <td>@servicio.fechaMod</td>
+                    </tr>
+                }
+            </table>
+        </fieldset>
+    </div>
+
+}

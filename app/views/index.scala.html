@@ -168,8 +168,9 @@
                     <!--<td>@user.pass</td>-->
                     <td style="text-align: center;">
                         <!--<a aria-hidden="true" class="glyphicon glyphicon-remove" href="@routes.ApplicationController.deleteUser(user.id)">delete</a>-->
-                        <button type="button" class="btn btn-default">
-                          <span class="glyphicon glyphicon-remove" href="@routes.ApplicationController.deleteUser(user.id)" aria-hidden="true"></span>
+                        <button type="button" class="btn btn-default"
+                        onclick="location.href='@routes.ApplicationController.deleteUser(user.id)'">
+                          <span class="glyphicon glyphicon-remove"  aria-hidden="true"></span>
                         </button>
                     </td>
                 </tr>

@@ -1,5 +1,5 @@
-@(servicioForm: Form[models.ServicioFormData],servicios : Seq[models.Servicio])(implicit request: RequestHeader)
-@main("welcome") {
+@(notariaForm: Form[models.NotariaFormData],notarias : Seq[models.Notaria])(implicit request: RequestHeader)
+@main() {
 
     <form id="servicio-data-form" role="form" action='@routes.ApplicationControllerServicio.addServicio()' method="post" class="form-horizontal" align="center" autocomplete="off">
 
@@ -7,7 +7,7 @@
 
             <div class="user-form">
                 <label class="form-title" style="color: #F8741B; font-size: 22px;font-weight: bold; 
-                text-decoration:none">Servicios Notaria</label>
+                text-decoration:none">Notaria</label>
             </div>
             <br/>
 
@@ -92,40 +92,22 @@
             <table class="table table-bordered table-hover">
                 <tr>
                     <th>#</th>
-                    <th>NotariaId</th>
+                    <!--<th>NotariaId</th>-->
                     <th>Nombre</th>
                     <th>Descripción</th>
                     <th>Valor</th>
                     <th>Estado</th>
                     <!--<th>FechaMod</th>-->
                 </tr>
-                @for(servicio <- servicios){
+                @for(notaria <- notarias){
                     <tr>
-                        <td>@servicio.id</td>
-                        <td>@servicio.notariaId</td>
-                        <td>@servicio.nombre</td>
-                        <td>@servicio.descripcion</td>
-                        <td>@servicio.valor</td>
-                        <td>@servicio.estado</td>
-                        <!--<td>@servicio.fechaMod</td>-->
+                        <td>@notaria.id</td>
+                        <td>@notaria.nombre</td>
+                        <td>@notaria.direccion</td>
+                        <td>@notaria.telefono</td>
+                        <td>@notaria.horario</td>
                     </tr>
                 }
-            </table>
-        </fieldset>
-    </div>
-    <div class="user-display" >
-        <fieldset>
-            <!--<legend align="center"><h3>Registered Users</h3></legend>-->
-            <table class="table table-bordered table-hover">
-                <tr>
-                    <th>#</th>
-                    <th>NotariaId</th>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Valor</th>
-                    <th>Estado</th>
-                    <!--<th>FechaMod</th>-->
-                </tr>
             </table>
         </fieldset>
     </div>

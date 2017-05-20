@@ -8,16 +8,18 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 class ApplicationController extends Controller {
 
-  def index = Action.async { implicit request =>
-    UserService.listAllUsers map { users =>
-      Ok(views.html.index(UserForm.form, users))
-    }
+  def index = Action {
+      Ok(views.html.index(""))
+  }
+  
+  def login = Action {
+      Ok(views.html.login())
   }
 
  def addUser() = Action.async { implicit request =>
     UserForm.form.bindFromRequest.fold(
       // if any error in submitted data
-      errorForm => Future.successful(Ok(views.html.index(errorForm, Seq.empty[User]))),
+      errorForm => Future.successful(Ok(views.html.index(""))),
       data => {
         val newUser = User(0, data.firstName, data.lastName, data.mobile, data.email, data.login, data.pass)
         UserService.addUser(newUser).map(res =>

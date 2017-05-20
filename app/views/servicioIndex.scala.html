@@ -1,5 +1,5 @@
 @(servicioForm: Form[models.ServicioFormData],servicios : Seq[models.Servicio])(implicit request: RequestHeader)
-@main() {
+@main("welcome") {
 
     <form id="servicio-data-form" role="form" action='@routes.ApplicationControllerServicio.addServicio()' method="post" class="form-horizontal" align="center" autocomplete="off">
 

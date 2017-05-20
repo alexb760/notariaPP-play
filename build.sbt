@@ -29,3 +29,5 @@ EclipseKeys.skipParents in ThisBuild := false
 fork in run := true
 
 fork in run := true
+
+fork in run := true

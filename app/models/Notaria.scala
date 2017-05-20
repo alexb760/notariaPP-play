@@ -42,7 +42,7 @@ class NotariaTableDef(tag: Tag) extends Table[Notaria](tag, "not_notaria") {
   def fechacrea = column[String]("not_fechacrea")
 
   override def * =
-    (id, nombre, direccion, telefono, telefono2,horario,correo, usuario,fechacrea ) <>(Notaria.tupled, Notaria.unapply)
+    (id, nombre, direccion, telefono, telefono2,horario,correo, usuario,fechacrea ) <> (Notaria.tupled, Notaria.unapply)
 }
 
 object Notarias {

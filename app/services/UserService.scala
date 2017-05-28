@@ -1,6 +1,6 @@
 package service
 
-import models.{User, Users}
+import models.{User, Users, UserFormDataLogin}
 import scala.concurrent.Future
 
 object UserService {
@@ -19,5 +19,9 @@ object UserService {
 
   def listAllUsers: Future[Seq[User]] = {
     Users.listAll
+  }
+
+  def login(login: String, pass: String): Future[Option[User]] = {
+    Users.loginUser(login, pass)
   }
 }

@@ -2,6 +2,7 @@ package service
 
 import models.{Servicio, Servicios}
 import scala.concurrent.Future
+import play.Logger;
 
 object ServicioService {
 
@@ -18,6 +19,7 @@ object ServicioService {
   }
 
   def listAllServicios: Future[Seq[Servicio]] = {
+    Logger.info("" + Servicios.listAll)
     Servicios.listAll
   }
 }

@@ -92,7 +92,7 @@
             <table class="table table-bordered table-hover">
                 <tr>
                     <th>#</th>
-                    <!--<th>NotariaId</th>-->
+                    <th>NotariaId</th>
                     <th>Nombre</th>
                     <th>Descripción</th>
                     <th>Valor</th>
@@ -102,7 +102,7 @@
                 @for(servicio <- servicios){
                     <tr>
                         <td>@servicio.id</td>
-                        <!--<td>@servicio.notariaId</td>-->
+                        <td>@servicio.notariaId</td>
                         <td>@servicio.nombre</td>
                         <td>@servicio.descripcion</td>
                         <td>@servicio.valor</td>
@@ -110,6 +110,22 @@
                         <!--<td>@servicio.fechaMod</td>-->
                     </tr>
                 }
+            </table>
+        </fieldset>
+    </div>
+    <div class="user-display" >
+        <fieldset>
+            <!--<legend align="center"><h3>Registered Users</h3></legend>-->
+            <table class="table table-bordered table-hover">
+                <tr>
+                    <th>#</th>
+                    <th>NotariaId</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Valor</th>
+                    <th>Estado</th>
+                    <!--<th>FechaMod</th>-->
+                </tr>
             </table>
         </fieldset>
     </div>

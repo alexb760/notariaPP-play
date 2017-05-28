@@ -1,6 +1,7 @@
 package controllers
 
 import models.{Servicio, ServicioForm}
+import models.Notaria
 import service.ServicioService
 import play.api.mvc._
 import scala.concurrent.Future

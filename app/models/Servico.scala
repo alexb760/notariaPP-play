@@ -1,6 +1,7 @@
 package models
 
 import models.Notaria
+import models.NotariaTableDef
 
 import play.api.Play
 import play.api.data.Form
@@ -70,7 +71,9 @@ class ServicioTableDef(tag: Tag) extends Table[Servicio](tag, "not_servicio") {
 	estado, 
 	fechaMod) <>(Servicio.tupled, Servicio.unapply)
     // A reified foreign key relation that can be navigated to create a join
-  //def Notaria = foreignKey("fk_table1_not_notaria", notariaId, Notaria)(_.id)
+    val notarias = TableQuery[NotariaTableDef]
+
+    def notariass = foreignKey("fk_not_notaria", notariaId, notarias)(_.id)
 }
 
 //DAO

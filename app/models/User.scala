@@ -12,6 +12,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 case class User(id: Long, firstName: String, lastName: String, mobile: Long, email: String, login: String, pass: String)
 
 case class UserFormData(firstName: String, lastName: String, mobile: Long, email: String, login: String, pass: String)
+case class UserFormDataLogin(login: String, pass: String)
 
 object UserForm {
 
@@ -25,6 +26,15 @@ object UserForm {
       "pass" -> nonEmptyText
     )(UserFormData.apply)(UserFormData.unapply)
   )
+}
+
+object LoginForm{
+  val formLogin = Form(
+      mapping(
+          "login" -> nonEmptyText,
+          "pass" ->nonEmptyText
+        )(UserFormDataLogin.apply)(UserFormDataLogin.unapply)
+    )
 }
 
 class UserTableDef(tag: Tag) extends Table[User](tag, "user") {
@@ -64,5 +74,17 @@ object Users {
   def listAll: Future[Seq[User]] = {
     dbConfig.db.run(users.result)
   }
+
+  def loginUser(login: String, pass: String): Future[Option[User]] = {
+    dbConfig.db.run(users.filter(u =>(u.login === login && u.pass === pass)).result.headOption)
+  }
+
+  val _sql = """ 
+          select 
+          usu_login, usu_pass 
+          from not_usuarios
+          where usu_login = ?
+          and usu_pass = ?
+      """
 
 }

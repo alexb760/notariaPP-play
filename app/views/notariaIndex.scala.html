@@ -1,4 +1,5 @@
 @(notariaForm: Form[models.NotariaFormData],notarias : Seq[models.Notaria])(implicit request: RequestHeader)
+
 @main("Notarias") {
 
     <form id="notaria-data-form" role="form" action='@routes.ApplicationControllerNotaria.addNotaria()' method="post" 

@@ -1,8 +1,8 @@
-
+@(LoginForm: Form[models.UserFormDataLogin],loginUser : Seq[models.UserFormDataLogin])(implicit request: RequestHeader)
 @main("Administración Notaria APP"){
 
     <div>
-        <form role="form">
+        <form role="form" role="form" action='@routes.ApplicationController.login()' method="post" >
             <div class="login-form" >
                 <div class="controls col-xs-offset-1 col-xs-8">
                     <div class="form-group">
@@ -18,7 +18,9 @@
                 </div>
             </div>
         </form>
-        
-    </div>
+        <div class="alert alert-danger well" data-ng-show="feedback != ''">
+          {{ feedback }} !
+        </div>
+          </div>
 
 }

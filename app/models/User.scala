@@ -79,12 +79,15 @@ object Users {
     dbConfig.db.run(users.filter(u =>(u.login === login && u.pass === pass)).result.headOption)
   }
 
-  val _sql = """ 
-          select 
-          usu_login, usu_pass 
-          from not_usuarios
-          where usu_login = ?
-          and usu_pass = ?
-      """
+  def authenticate(login: String, pass: String):   Future[Option[User]] = {
+    dbConfig.db.run(users.filter(u =>(u.login === login && u.pass === pass)).result.headOption)
+    //dbConfig.db.run { //implicit session =>
+    //  val q1 = for (u <- Users if u.email === email && u.password === password) yield u
+    //  println("^^^^^^^^" + Query(q1.length).first)
+    //  Query(q1.length).first
+      
+      //dbConfig.db.run(users.filter(u =>(u.login === login && u.pass === pass)).result.headOption)
+  }
+
 
 }

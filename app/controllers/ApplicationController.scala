@@ -1,7 +1,12 @@
 package controllers
 
+import models._ //{User, UserForm, LoginForm, UserFormDataLogin}
 import models.{User, UserForm, LoginForm, UserFormDataLogin}
+import play.api._
+import play.api.data._
 import play.api.mvc._
+import play.api.data.Forms._
+
 import scala.concurrent.Future
 import service.UserService
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -24,7 +29,7 @@ class ApplicationController extends Controller {
       Ok(views.html.index(""))
   }
 
-  
+  /*
   def login(login: String, pass: String) = Action.async { implicit request =>
     LoginForm.formLogin.bindFromRequest.fold(
       errorForm => Future.successful(Ok(views.html.login())),
@@ -35,13 +40,45 @@ class ApplicationController extends Controller {
       }
       )
   }
+*/
+
+
+lazy val loginForm = Form(
+    tuple(
+      "login" -> text,
+      "password" -> text) verifying ("Invalid user or password", result => result match {
+        case (login, password) => {
+          //println("user=" + login + " password=" + password);
+          println("+++++++: login");
+          val userList = Users.authenticate(login, password)
+          userList == 1
+        }
+        case _ => false
+      }))
+
+  def login = Action { implicit request =>
+    Ok(views.html.index("loginForm"))
+  }
+
+
+
+  /**
+   * Handle login form submission.
+   */
+  def authenticate = Action { implicit request =>
+    loginForm.bindFromRequest.fold(
+      formWithErrors => BadRequest(views.html.login(formWithErrors)),
+      user => Redirect(routes.ApplicationController.index).withSession("email" -> user._1))
+  }
+
+/**
 
  def addUser() = Action.async { implicit request =>
     UserForm.form.bindFromRequest.fold(
       // if any error in submitted data
       errorForm => Future.successful(Ok(views.html.index(""))),
       data => {
-        val newUser = User(0, data.firstName, data.lastName, data.mobile, data.email, data.login, data.pass)
+        val newUser = Users(0, data.firstName, data.lastName, data.mobile, data.email, data.login, data.pass)
         UserService.addUser(newUser).map(res =>
           Redirect(routes.ApplicationController.index())
         )
@@ -53,5 +90,5 @@ class ApplicationController extends Controller {
       Redirect(routes.ApplicationController.index())
     }
   }
-
+*/
 }

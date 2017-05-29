@@ -4,9 +4,13 @@
 
 # Home page
 GET     /                           controllers.ApplicationController.index
-GET     /login                      controllers.ApplicationController.login(login: String, pass: String)
-POST    /add                        controllers.ApplicationController.addUser
-GET     /delete/:id                 controllers.ApplicationController.deleteUser(id : Long)
+#GET     /login                      controllers.ApplicationController.login(login: String, pass: String)
+
+#GET     /login                       controllers.ApplicationController.login
+GET    /login                       controllers.ApplicationController.authenticate
+
+#POST    /add                        controllers.ApplicationController.addUser
+#GET     /delete/:id                 controllers.ApplicationController.deleteUser(id : Long)
 
 
 #Servicio

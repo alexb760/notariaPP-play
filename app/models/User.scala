@@ -76,17 +76,12 @@ object Users {
   }
 
   def loginUser(login: String, pass: String): Future[Option[User]] = {
-    dbConfig.db.run(users.filter(u =>(u.login === login && u.pass === pass)).result.headOption)
+    dbConfig.db.run(users.filter{u =>(u.login === login && u.pass === pass)}.result.headOption)
   }
 
-  def authenticate(login: String, pass: String):   Future[Option[User]] = {
-    dbConfig.db.run(users.filter(u =>(u.login === login && u.pass === pass)).result.headOption)
-    //dbConfig.db.run { //implicit session =>
-    //  val q1 = for (u <- Users if u.email === email && u.password === password) yield u
-    //  println("^^^^^^^^" + Query(q1.length).first)
-    //  Query(q1.length).first
-      
-      //dbConfig.db.run(users.filter(u =>(u.login === login && u.pass === pass)).result.headOption)
+  def authenticate(login: String, pass: String):  Future[Int] = {
+  dbConfig.db.run(users.filter{u =>(u.login === login && u.pass === pass)}.length.result)
+
   }
 
 

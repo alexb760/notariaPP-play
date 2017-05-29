@@ -51,13 +51,14 @@ lazy val loginForm = Form(
           //println("user=" + login + " password=" + password);
           println("+++++++: login");
           val userList = Users.authenticate(login, password)
+          userList.onSuccess { case s => println(s"Valor--> $s") }
           userList == 1
         }
         case _ => false
       }))
 
   def login = Action { implicit request =>
-    Ok(views.html.index("loginForm"))
+    Ok(views.html.index(""))
   }
 
 
@@ -68,7 +69,7 @@ lazy val loginForm = Form(
   def authenticate = Action { implicit request =>
     loginForm.bindFromRequest.fold(
       formWithErrors => BadRequest(views.html.login(formWithErrors)),
-      user => Redirect(routes.ApplicationController.index).withSession("email" -> user._1))
+      user => Redirect(routes.ApplicationController.index()).withSession("login" -> user._1))
   }
 
 /**

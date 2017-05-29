@@ -1,0 +1,145 @@
+@(id: Long, notariaForm: Form[models.NotariaFormData], notarias : Seq[models.Notaria])(implicit request: RequestHeader)
+@main("Notarias") {
+    <form id="notaria-data-form" role="form" action='@routes.ApplicationControllerNotaria.updateNotaria(id)' 
+        method="post" class="form-horizontal" align="center" autocomplete="off">
+        
+            <fieldset class="notaria-fieldset">
+            @for(notaria <- notarias){
+                <table>
+                    <tr>
+                        <td align="left">
+                            <div class="notaria-form" id="lblNombre">
+                                <div class="controls col-xs-offset-3 col-xs-12">
+                                    <div class="input-group">
+                                        <strong style="width: 100%">Nombre:</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td align="center">
+                            <div class="notaria-form">
+                                <div class="controls col-xs-offset-3 col-xs-12">
+                                    <div class="form-group">
+                                        <input type="text" id="nombre" name="nombre" value="@notaria.nombre" 
+                                        placeholder="Nombre Notaría" 
+                                        class="form-control" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="col-xs-1"></td>
+                        
+                        <td align="left">
+                            <div class="notaria-form" id="lblDireccion">
+                                <div class="controls col-xs-offset-3 col-xs-12">
+                                    <div class="input-group">
+                                        <strong>Dirección:</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td align="center">
+                            <div class="notaria-form">
+                                <div class="controls col-xs-offset-3 col-xs-12">
+                                    <div class="form-group">
+                                        <input type="text" id="direccion" name="direccion" value="@notaria.direccion"
+                                        placeholder="Dirección" class="form-control" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left">
+                            <div class="notaria-form" id="lblTelefono">
+                                <div class="controls col-xs-offset-3 col-xs-12">
+                                    <div class="input-group">
+                                        <strong>Teléfono:</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td align="center">
+                            <div class="notaria-form">
+                                <div class="controls col-xs-offset-3 col-xs-12">
+                                    <div class="form-group">
+                                        <input type="text" id="telefono" name="telefono" placeholder="Teléfono" 
+                                        class="form-control" value="@notaria.telefono" maxlength="10" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td></td>
+                        <td align="left">
+                            <div class="notaria-form" id="lblTelefono2">
+                                <div class="controls col-xs-offset-3 col-xs-12">
+                                    <div class="input-group">
+                                        <strong>Teléfono 2:</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td align="center">
+                            <div class="notaria-form">
+                                <div class="controls col-xs-offset-3 col-xs-12">
+                                    <div class="form-group">
+                                        <input type="text" id="telefono2" name="telefono2" placeholder="Teléfono 2" 
+                                        class="form-control" value="@notaria.telefono2" maxlength="10">
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        
+                    </tr>
+                    <tr>
+                        <td align="left">
+                            <div class="notaria-form" id="lblHorario">
+                                <div class="controls col-xs-offset-3 col-xs-12">
+                                    <div class="input-group">
+                                        <strong>Horario:</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td align="center">
+                            <div class="notaria-form">
+                                <div class="controls col-xs-offset-3 col-xs-12">
+                                    <div class="form-group">
+                                        <input type="text" id="horario" name="horario" placeholder="Horario" 
+                                        class="form-control" value="@notaria.horario" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td></td>
+                        <td align="left">
+                            <div class="notaria-form" id="lblCorreo">
+                                <div class="controls col-xs-offset-3 col-xs-12">
+                                    <div class="input-group">
+                                        <strong>Correo:</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td align="center">
+                            <div class="notaria-form">
+                                <div class="controls col-xs-offset-3 col-xs-12">
+                                    <div class="form-group">
+                                        <input type="email" id="correo" name="correo" placeholder="Correo" 
+                                        class="form-control" value="@notaria.correo" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                }
+                <br/>
+                <div class="form-actions controls ynt-btn-xlarge" style="width: 75%; text-align: right;">
+                    <button type="submit" class="btn btn-primary ynt-btn-orange">Actualizar</button>
+                </div>
+            </fieldset>
+        
+        <br>
+    </form>
+}

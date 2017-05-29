@@ -1,30 +1,28 @@
-@(servicioForm: Form[models.ServicioFormData],servicios : Seq[models.Servicio])(implicit request: RequestHeader)
-@main("welcome") {
-
-    <form id="servicio-data-form" role="form" action='@routes.ApplicationControllerServicio.addServicio()' method="post" class="form-horizontal" align="center" autocomplete="off">
-
-        <fieldset class="user-fieldset">
-
-            <div class="user-form">
+@(idNot: Long, ServicioForm: Form[models.ServicioFormData],servicios : Seq[models.Servicio])(implicit request: RequestHeader)
+@main("") {
+    <form id="servicio-data-form" role="form" action='@routes.ApplicationControllerServicio.addServicio(idNot)' method="post" 
+        class="form-horizontal" align="center" autocomplete="off">
+        <fieldset>
+            <div class="servicio-form">
                 <label class="form-title" style="color: #F8741B; font-size: 22px;font-weight: bold; 
                 text-decoration:none">Servicios Notaria</label>
             </div>
             <br/>
 
-            <table align="center" cellspacing="20">
+            <table>
                 <tr>
                     <td align="left">
-                        <div class="user-form" id="firstName_field_label">
-                            <div class="controls col-xs-offset-3 col-xs-9">
+                        <div class="servicio-form" id="lblNombre">
+                            <div class="controls col-xs-offset-3 col-xs-12">
                                 <div class="input-group">
                                     <strong>Nombre:</strong>
                                 </div>
                             </div>
                         </div>
                     </td>
-                    <td align="center">
-                        <div class="user-form" id="firstName_field_value">
-                            <div class="controls col-xs-offset-3 col-xs-9">
+                    <td align="left" style="width: 350px">
+                        <div class="servicio-form">
+                            <div class="controls col-xs-offset-3 col-xs-12">
                                 <div class="form-group">
                                     <input type="text" id="nombre" name="nombre" value="" placeholder="Nombre Servicio" class="form-control" required>
                                 </div>
@@ -34,38 +32,17 @@
                 </tr>
                 <tr>
                     <td align="left">
-                        <div class="user-form" id="lastName_field_label">
-                            <div class="controls col-xs-offset-3 col-xs-9">
-                                <div class="input-group">
-                                    <strong>Descripcion:</strong>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                    <td align="center">
-                        <div class="user-form" id="lastName_field_value">
-                            <div class="controls col-xs-offset-3 col-xs-9">
-                                <div class="form-group">
-                                    <input type="text" id="descripcion" name="descripcin" value="" 
-                                    placeholder="Descripción" class="form-control" required>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="left">
-                        <div class="user-form" id="mobile_field_label">
-                            <div class="controls col-xs-offset-3 col-xs-9">
+                        <div class="servicio-form" id="lblValor">
+                            <div class="controls col-xs-offset-3 col-xs-12">
                                 <div class="input-group">
                                     <strong>Valor:</strong>
                                 </div>
                             </div>
                         </div>
                     </td>
-                    <td align="center">
-                        <div class="user-form" id="mobile_field_value">
-                            <div class="controls col-xs-offset-3 col-xs-9">
+                    <td align="left">
+                        <div class="servicio-form">
+                            <div class="controls col-xs-offset-3 col-xs-12">
                                 <div class="form-group">
                                     <input type="number" id="valor" name="valor" placeholder="Valor Servicio" 
                                     class="form-control" required>
@@ -75,9 +52,29 @@
                     </td>
                 </tr>
                 <tr>
+                    <td align="left">
+                        <div class="servicio-form" id="lblDescripcion">
+                            <div class="controls col-xs-offset-3 col-xs-12">
+                                <div class="input-group">
+                                    <strong>Descripción:</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td align="left">
+                        <div class="servicio-form" id="lastName_field_value">
+                            <div class="controls col-xs-offset-3 col-xs-12">
+                                <div class="form-group">
+                                    <textarea id="descripcion" name="descripcion" placeholder="Descripción" 
+                                     class="form-control" style="resize: none;" rows="3" maxlength="200"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
                 </tr>
             </table>
             <br/>
+
             <div class="form-actions controls ynt-btn-xlarge" style="width: 75%; text-align: right;">
                 <button type="submit" class="btn btn-primary ynt-btn-orange">Agregar</button>
             </div>
@@ -86,48 +83,38 @@
     </form>
     <br/>
 
-    <div class="user-display" >
-        <fieldset>
-            <!--<legend align="center"><h3>Registered Users</h3></legend>-->
-            <table class="table table-bordered table-hover">
+    <div class="container" >
+        <table class="table table-bordered table-hover" cellspacing="20">
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th style="text-align: center;">Valor</th>
+                <th></th>
+                <th></th>
+            </tr>
+            @for(servicio <- servicios){
                 <tr>
-                    <th>#</th>
-                    <th>NotariaId</th>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Valor</th>
-                    <th>Estado</th>
-                    <!--<th>FechaMod</th>-->
+                    <td>@servicio.id</td>
+                    <td>@servicio.nombre</td>
+                    <td>@servicio.descripcion</td>
+                    <td style="text-align: right;">
+                        @servicio.valor
+                    </td>
+                    <td style="text-align: center;">
+                        <button type="button" class="btn btn-default" title="Editar" 
+                            onclick="location.href='@routes.ApplicationControllerServicio.editServicio(servicio.id, idNot)'">
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        </button>
+                    </td>
+                     <td style="text-align: center;">
+                        <button type="button" class="btn btn-default" title="Eliminar" 
+                            onclick="location.href='@routes.ApplicationControllerServicio.deleteServicio(servicio.id, idNot)'">
+                            <span class="glyphicon glyphicon-remove"  aria-hidden="true"></span>
+                        </button>
+                    </td>
                 </tr>
-                @for(servicio <- servicios){
-                    <tr>
-                        <td>@servicio.id</td>
-                        <td>@servicio.notariaId</td>
-                        <td>@servicio.nombre</td>
-                        <td>@servicio.descripcion</td>
-                        <td>@servicio.valor</td>
-                        <td>@servicio.estado</td>
-                        <!--<td>@servicio.fechaMod</td>-->
-                    </tr>
-                }
-            </table>
-        </fieldset>
+            }
+        </table>
     </div>
-    <div class="user-display" >
-        <fieldset>
-            <!--<legend align="center"><h3>Registered Users</h3></legend>-->
-            <table class="table table-bordered table-hover">
-                <tr>
-                    <th>#</th>
-                    <th>NotariaId</th>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Valor</th>
-                    <th>Estado</th>
-                    <!--<th>FechaMod</th>-->
-                </tr>
-            </table>
-        </fieldset>
-    </div>
-
 }

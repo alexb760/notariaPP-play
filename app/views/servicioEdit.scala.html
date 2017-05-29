@@ -1,0 +1,80 @@
+@(id: Long, idNot: Long, ServicioForm: Form[models.ServicioFormData], servicios : Seq[models.Servicio])(implicit request: RequestHeader)
+@main("Servicios") {
+    <form id="servicio-data-form" role="form" action='@routes.ApplicationControllerServicio.updateServicio(id, idNot)' method="post"
+        class="form-horizontal" align="center" autocomplete="off">
+        <fieldset>
+            @for(servicio <- servicios){
+                <table>
+                    <tr>
+                        <td align="left">
+                            <div class="servicio-form" id="lblNombre">
+                                <div class="controls col-xs-offset-3 col-xs-12">
+                                    <div class="input-group">
+                                        <strong>Nombre:</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td align="left" style="width: 350px">
+                            <div class="servicio-form">
+                                <div class="controls col-xs-offset-3 col-xs-12">
+                                    <div class="form-group">
+                                        <input type="text" id="nombre" name="nombre" value="@servicio.nombre" placeholder="Nombre Servicio" class="form-control" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left">
+                            <div class="servicio-form" id="lblValor">
+                                <div class="controls col-xs-offset-3 col-xs-12">
+                                    <div class="input-group">
+                                        <strong>Valor:</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td align="left">
+                            <div class="servicio-form">
+                                <div class="controls col-xs-offset-3 col-xs-12">
+                                    <div class="form-group">
+                                        <input type="number" id="valor" name="valor" value="@servicio.valor" placeholder="Valor Servicio" class="form-control" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left">
+                            <div class="servicio-form" id="lblDescripcion">
+                                <div class="controls col-xs-offset-3 col-xs-12">
+                                    <div class="input-group">
+                                        <strong>Descripción:</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td align="left">
+                            <div class="servicio-form" id="lastName_field_value">
+                                <div class="controls col-xs-offset-3 col-xs-12">
+                                    <div class="form-group">
+                                        <textarea id="descripcion" name="descripcion"
+                                        placeholder="Descripción" class="form-control" rows="3" style="resize: none;"
+                                        maxlength="200">@servicio.descripcion</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            }
+            <br/>
+
+            <div class="form-actions controls ynt-btn-xlarge" style="width: 75%; text-align: right;">
+                <button type="submit" class="btn btn-primary ynt-btn-orange">Agregar</button>
+            </div>
+
+        </fieldset>
+    </form>
+}

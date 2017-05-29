@@ -15,6 +15,7 @@ libraryDependencies ++= Seq(
   "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.1" % Test,
   "mysql" % "mysql-connector-java" % "5.1.16",
   "com.typesafe.slick" %% "slick" % "2.1.0",
+  //"com.typesafe.slick" %% "slick" % "3.2.0",
    //"com.typesafe.slick" %% "slick" % "3.0.0",
   "com.typesafe.play" %% "play-slick" % "1.1.0",
   "com.typesafe.play" %% "play-slick-evolutions" % "1.1.0",

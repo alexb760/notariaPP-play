@@ -10,3 +10,6 @@ target
 *.log
 .sbtserver/connections/activator-b8e07ebf-364d-4ceb-9ced-15820d230b25.log.01
 *.02
+.sbtserver/master.log
+project/.sbtserver
+project/sbt-ui.sbt

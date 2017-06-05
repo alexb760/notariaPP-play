@@ -1,11 +1,19 @@
-@(idNot: Long, ServicioForm: Form[models.ServicioFormData],servicios : Seq[models.Servicio])(implicit request: RequestHeader)
+@(idNot: Long, ServicioForm: Form[models.ServicioFormData], servicios : Seq[(models.Servicio, models.NotariaShort)])(implicit request: RequestHeader)
 @main("") {
     <form id="servicio-data-form" role="form" action='@routes.ApplicationControllerServicio.addServicio(idNot)' method="post" 
         class="form-horizontal" align="center" autocomplete="off">
         <fieldset>
             <div class="servicio-form">
-                <label class="form-title" style="color: #F8741B; font-size: 22px;font-weight: bold; 
-                text-decoration:none">Servicios Notaria</label>
+                @Option(servicios).filterNot(_.isEmpty).map { notName =>
+                    @notName.zipWithIndex.map { 
+                        case ((servicio, notaria), index) => {
+                            @{if(index == 0)
+                                <label class="form-title" style="color: #F8741B; font-size: 22px;font-weight: bold; 
+                                text-decoration:none">Servicios {notaria.nombre}</label> 
+                            }
+                        }
+                    }
+                }
             </div>
             <br/>
 
@@ -77,44 +85,62 @@
 
             <div class="form-actions controls ynt-btn-xlarge" style="width: 75%; text-align: right;">
                 <button type="submit" class="btn btn-primary ynt-btn-orange">Agregar</button>
+                <button type="button" class="btn btn-primary ynt-btn-orange"
+                    onclick="location.href='@routes.ApplicationControllerNotaria.index()'">Volver</button>
             </div>
 
         </fieldset>
     </form>
     <br/>
 
-    <div class="container" >
-        <table class="table table-bordered table-hover" cellspacing="20">
-            <tr>
-                <th>#</th>
-                <th>Nombre</th>
-                <th>Descripción</th>
-                <th style="text-align: center;">Valor</th>
-                <th></th>
-                <th></th>
-            </tr>
-            @for(servicio <- servicios){
+    @Option(servicios).filterNot(_.isEmpty).map { servNot =>
+        <div class="container" >
+            <table class="table table-bordered table-hover" cellspacing="20">
                 <tr>
-                    <td>@servicio.id</td>
-                    <td>@servicio.nombre</td>
-                    <td>@servicio.descripcion</td>
-                    <td style="text-align: right;">
-                        @servicio.valor
-                    </td>
-                    <td style="text-align: center;">
-                        <button type="button" class="btn btn-default" title="Editar" 
-                            onclick="location.href='@routes.ApplicationControllerServicio.editServicio(servicio.id, idNot)'">
-                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                        </button>
-                    </td>
-                     <td style="text-align: center;">
-                        <button type="button" class="btn btn-default" title="Eliminar" 
-                            onclick="location.href='@routes.ApplicationControllerServicio.deleteServicio(servicio.id, idNot)'">
-                            <span class="glyphicon glyphicon-remove"  aria-hidden="true"></span>
-                        </button>
-                    </td>
+                    <th>#</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th style="text-align: center;">Valor</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
                 </tr>
-            }
-        </table>
-    </div>
+
+                @servNot.map { 
+                    case (servicio, notaria) => {
+                        <tr>
+                            <td>@servicio.id</td>
+                            <td>@servicio.nombre</td>
+                            <td>@servicio.descripcion</td>
+                            <td style="text-align: right;">
+                                @servicio.valor
+                            </td>
+                            <td style="text-align: center;">
+                                <button type="button" class="btn btn-default" title="Editar" 
+                                    onclick="location.href='@routes.ApplicationControllerServicio.editServicio(servicio.id, idNot)'">
+                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                </button>
+                            </td>
+                             <td style="text-align: center;">
+                                <button type="button" class="btn btn-default" title="Eliminar" 
+                                    onclick="location.href='@routes.ApplicationControllerServicio.deleteServicio(servicio.id, idNot)'">
+                                    <span class="glyphicon glyphicon-remove"  aria-hidden="true"></span>
+                                </button>
+                            </td>
+                            <td style="text-align: center;">
+                                <button type="button" class="btn btn-primary ynt-btn-orange"
+                                    onclick="location.href='@routes.ApplicationControllerRequisito.index(servicio.id)'">
+                                    Requisitos
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+        </div>
+    }.getOrElse {
+        <div class="well">
+            <em>No hay datos para mostrar...</em>
+        </div>
+    }  
 }

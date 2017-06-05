@@ -1,22 +1,29 @@
-package controllers
+  package controllers
 
 import java.util.Date
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import models.{Servicio, ServicioForm}
 import models.Notaria
+import models.NotariaShort
 import play.api.i18n.I18nSupport
 import play.api.mvc._
 import play.Logger
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import service.ServicioService
+import services.NotariaService
 import service.UserService
 
 class ApplicationControllerServicio extends Controller {
 
   def index(idNot: Long) = Action.async { implicit request =>
-    ServicioService.listServicioXidNot(idNot) map { servicios =>
+
+    /*ServicioService.listServicioXidNot(idNot) map { servicios =>
+      Ok(views.html.servicioIndex(idNot, ServicioForm.form, servicios))
+    }*/
+
+    ServicioService.lstServXNotaria(idNot) map { servicios =>
       Ok(views.html.servicioIndex(idNot, ServicioForm.form, servicios))
     }
   }
@@ -26,7 +33,8 @@ class ApplicationControllerServicio extends Controller {
     var date: String = sdf.format(new java.util.Date())
 
     ServicioForm.form.bindFromRequest.fold(
-      errorForm => Future.successful(Ok(views.html.servicioIndex(idNot, errorForm, Seq.empty[Servicio]))),
+      //errorForm => Future.successful(Ok(views.html.servicioIndex(idNot, errorForm, Seq.empty[Servicio]))),
+      errorForm => Future.successful(Ok(views.html.servicioIndex(idNot, errorForm, Seq.empty[(Servicio, NotariaShort)]))),
       data => {
         val newServicio = Servicio(0, idNot, data.nombre, data.descripcion, data.valor, 
                                     "A", date)

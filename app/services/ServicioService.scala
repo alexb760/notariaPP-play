@@ -1,8 +1,9 @@
 package service
 
 import models.{Servicio, Servicios}
+import models.NotariaShort
 import scala.concurrent.Future
-import play.Logger;
+import play.Logger
 
 object ServicioService {
 
@@ -29,5 +30,9 @@ object ServicioService {
 
   def listServicioXidNot(idNot: Long): Future[Seq[Servicio]] = {
     Servicios.listServicioXIdNotaria(idNot)
+  }
+
+  def lstServXNotaria(idNot: Long): Future[Seq[(Servicio, NotariaShort)]] = {
+    Servicios.lstServXNotaria(idNot)
   }
 }

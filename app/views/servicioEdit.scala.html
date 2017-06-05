@@ -1,8 +1,20 @@
 @(id: Long, idNot: Long, ServicioForm: Form[models.ServicioFormData], servicios : Seq[models.Servicio])(implicit request: RequestHeader)
-@main("Servicios") {
+@main("") {
     <form id="servicio-data-form" role="form" action='@routes.ApplicationControllerServicio.updateServicio(id, idNot)' method="post"
         class="form-horizontal" align="center" autocomplete="off">
         <fieldset>
+             <div class="servicio-form">
+                @Option(servicios).filterNot(_.isEmpty).map { serName =>
+                    @serName.map { 
+                        case (servicio) => {
+                            <label class="form-title" style="color: #F8741B; font-size: 22px;font-weight: bold; 
+                            text-decoration:none">@servicio.nombre</label> 
+                        }
+                    }
+                }
+            </div>
+            <br>
+
             @for(servicio <- servicios){
                 <table>
                     <tr>
@@ -72,7 +84,8 @@
             <br/>
 
             <div class="form-actions controls ynt-btn-xlarge" style="width: 75%; text-align: right;">
-                <button type="submit" class="btn btn-primary ynt-btn-orange">Agregar</button>
+                <button type="submit" class="btn btn-primary ynt-btn-orange">Actualizar</button>
+                <button type="submit" class="btn btn-primary ynt-btn-orange">Volver</button>
             </div>
 
         </fieldset>

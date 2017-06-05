@@ -34,6 +34,10 @@ case class Page[A](items: Seq[A], page: Int, offset: Long, total: Long) {
   lazy val next = Option(page + 1).filter(_ => (offset + items.size) < total)
 }
 
+case class ServicioNotaria[A](items: Seq[A]){
+  
+}
+
 object ServicioForm {
 
   val form = Form(
@@ -105,25 +109,8 @@ object Servicios {
     dbConfig.db.run(servicios.filter {servicio => servicio.nombre.toLowerCase like filter.toLowerCase}.length.result)
   }
 
-  def listServicioNotaria {
-    servicios.flatMap(s => 
-      notarias.filter(n => s.notariaId === n.id)
-              .map(n => (n.nombre))
-    ).result
-
-    (for(s <- servicios;
-         n <- notarias if s.notariaId === n.id
-     ) yield (n.nombre)
-    ).result
-  }
-
   def listServicioXIdNotaria(idNot: Long): Future[Seq[Servicio]] = {
     dbConfig.db.run(servicios.filter(_.notariaId === idNot).result)
-  }
-
-  def lstServNota{
-    (servicios join notarias on (_.notariaId === _.id))
-      .map{case (s, n) => (s.nombre, n.nombre)}.result
   }
 
   def list(page: Int = 0, pageSize: Int = 5, orderBy: Int = 1, filter: String = "%"): Future[Page[(Servicio, NotariaShort)]] = {
@@ -142,6 +129,20 @@ object Servicios {
       list = query.result.map { rows => rows.collect { case (servicio, Some(id), Some(nombre)) => (servicio, NotariaShort(id, nombre)) }}
       result <- dbConfig.db.run(list)
     } yield Page(result, page, offset, totalRows)
+  }
+
+  def lstServXNotaria(idNot: Long): Future[Seq[(Servicio, NotariaShort)]] = {
+    val query = 
+      (for {
+        (servicio, notaria) <- servicios joinLeft notarias on (_.notariaId === _.id)
+          if servicio.notariaId === idNot
+        }yield (servicio, notaria.map(_.id), notaria.map(_.nombre)))
+
+      for{
+        totalRows <- count("")
+        lstServXNotaria = query.result.map {rows => rows.collect {case (servicio, Some(id), Some(nombre)) => (servicio, NotariaShort(id, nombre)) }}
+        result <- dbConfig.db.run(lstServXNotaria)
+      }yield (result)
   }
   
 }

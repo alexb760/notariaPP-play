@@ -1,0 +1,24 @@
+@(idSer: Long, RequisitoForm: Form[models.RequisitoFormData], requisitos : Seq[models.Requisito])(
+implicit request: RequestHeader)
+@main("Requisitos") {
+	<form id="requisito-data-form" role="form" action="@routes.ApplicationControllerRequisito.upload(idSer)" 
+        enctype="multipart/form-data"  method="post" class="form-horizontal" align="center" autocomplete="off">
+        <br>
+        <fieldset>
+        	<ul style="text-align: left;">
+	        	@for(requisito <- requisitos){
+	        		<li>@requisito.nombre</li>
+	        	}
+        	</ul>
+            <br>
+            <div class="form-group">
+                <input type="file" id="uplRequisito" name="uplRequisito">
+
+                <p>
+                    <button type="submit" class="btn btn-primary ynt-btn-orange">Enviar</button>
+                </p>
+            </div>
+
+        </fieldset>
+    </form>
+}

@@ -13,3 +13,4 @@ target
 .sbtserver/master.log
 project/.sbtserver
 project/sbt-ui.sbt
+.sbtserver/previous.log

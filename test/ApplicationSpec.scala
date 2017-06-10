@@ -9,34 +9,62 @@ import play.api.test.Helpers._
  */
 class ApplicationSpec extends PlaySpec with OneAppPerTest {
 
-  "Routes" should {
+  //"Routes" should {
 
-    "send 404 on a bad request" in  {
-      route(app, FakeRequest(GET, "/boum")).map(status(_)) mustBe Some(NOT_FOUND)
+  //  "send 404 on a bad request" in  {
+  //    route(app, FakeRequest(GET, "/notarias")).map(status(_)) mustBe Some(NOT_FOUND)
+  //  }
+
+ // }
+
+  "ApplicationControllerNotaria" should {
+
+    "render the index page" in {
+      val home = route(app, FakeRequest(GET, "/notarias")).get
+
+      status(home) mustBe OK
+      contentType(home) mustBe Some("text/html")
+      //contentAsString(home) must include ("Your new application is ready.")
     }
 
   }
 
-  "HomeController" should {
+
+  "ApplicationControllerServicio" should {
+
+    "render the index page" in {
+      val home = route(app, FakeRequest(GET, "/servicios")).get
+
+      status(home) mustBe OK
+      contentType(home) mustBe Some("text/html")
+      //contentAsString(home) must include ("Your new application is ready.")
+    }
+
+  }
+  
+
+
+  "ApplicationController" should {
 
     "render the index page" in {
       val home = route(app, FakeRequest(GET, "/")).get
 
       status(home) mustBe OK
       contentType(home) mustBe Some("text/html")
-      contentAsString(home) must include ("Your new application is ready.")
+      contentAsString(home) must include ("Bienvenido")
     }
 
   }
 
-  "CountController" should {
 
-    "return an increasing count" in {
-      contentAsString(route(app, FakeRequest(GET, "/count")).get) mustBe "0"
-      contentAsString(route(app, FakeRequest(GET, "/count")).get) mustBe "1"
-      contentAsString(route(app, FakeRequest(GET, "/count")).get) mustBe "2"
-    }
+ // "CountController" should {
 
-  }
+ //   "return an increasing count" in {
+ //     contentAsString(route(app, FakeRequest(GET, "/notarias")).get) mustBe "0"
+ //     contentAsString(route(app, FakeRequest(GET, "/notarias")).get) mustBe "1"
+ //     contentAsString(route(app, FakeRequest(GET, "/notarias")).get) mustBe "2"
+ //   }
+
+ // }
 
 }
